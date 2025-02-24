@@ -4,12 +4,12 @@ ActiveAdmin.register Serie do
 
 
   action_item :importar_series, only: :index do
-    link_to 'Importar 100 Séries', importar_series_admin_series_index_path, method: :get
+    link_to 'Importar 2 Séries', importar_series_admin_series_index_path, method: :get
   end
 
-  action_item :importar_series, only: :show do
-    link_to 'Ver elenco', importar_series_admin_series_index_path, method: :get
-  end
+  #action_item :importar_series, only: :show do
+  #  link_to 'Ver elenco', importar_series_admin_series_index_path, method: :get
+  #end
 
   
 
@@ -17,6 +17,12 @@ ActiveAdmin.register Serie do
     series_importadas = TmdbService.new.importar_series
     redirect_to collection_path, notice: "#{series_importadas} séries foram importadas com sucesso!"
   end
+
+  filter :name_pt
+  filter :original_name
+  filter :country
+  filter :popularity
+  filter :average_voting
 
   index do
     selectable_column
@@ -41,8 +47,7 @@ ActiveAdmin.register Serie do
         image_tag serie.url_photo if serie.url_photo.present?
       end
       row :characters do |serie|
-        puts serie.id
-        link_to "Ver personagens", admin_series_characters_path(series_id: serie.id), class: 'button'
+        link_to "Ver personagens", admin_characters_path(q: {serie_id: serie.id})
       end
     end
 

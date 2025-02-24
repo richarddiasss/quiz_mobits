@@ -35,6 +35,8 @@ gem 'cancancan'
 gem 'draper'
 gem 'pundit'
 
+#gem "ffi", "< 1.17.0"
+
 # Gemfile
 gem 'dotenv-rails', groups: [:development, :test]
 
